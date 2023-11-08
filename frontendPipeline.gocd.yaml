@@ -12,6 +12,18 @@ pipelines:
         auto_update: true
         branch: master
     stages:
+    - InstallDependencies:
+        fetch_materials: true
+        clean_workspace: true
+        jobs:
+          Install-Dependencies:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - install
+                command: npm
+                run_if: passed
     - Build:
         fetch_materials: true
         keep_artifacts: false
