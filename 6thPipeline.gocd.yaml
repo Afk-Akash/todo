@@ -1,0 +1,36 @@
+format_version: 10
+pipelines:
+  6thPipeline:
+    group: defaultGroup
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      git-f1d7942:
+        git: https://github.com/Afk-Akash/todo
+        shallow_clone: false
+        auto_update: true
+        branch: master
+    stages:
+    - build:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          dependency-build:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - install
+                command: npm
+                run_if: passed
+            - exec:
+                arguments:
+                - run
+                - build
+                command: npm
+                run_if: passed
