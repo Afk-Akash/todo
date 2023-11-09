@@ -21,8 +21,18 @@ pipelines:
             tasks:
             - exec:
                 arguments:
-                - install
-                command: npm
+                - /bin/bash
+                - -c
+                - |
+                  if [ -d "node_modules_cache" ]; then
+                      echo "Restoring node_modules from cache..."
+                      cp -r node_modules_cache node_modules
+                  else
+                      echo "Installing npm dependencies..."
+                      npm install
+                      echo "Caching node_modules..."
+                      cp -r node_modules_cache node_modules
+                  fi
                 run_if: passed
     - Build:
         fetch_materials: true
@@ -41,3 +51,10 @@ pipelines:
                 - build
                 command: npm
                 run_if: passed
+            - exec:
+                arguments:
+                - /bin/bash
+                - -c
+                - |
+                  echo "Caching node_modules..."
+                  cp -r node_modules_cache node_modules
