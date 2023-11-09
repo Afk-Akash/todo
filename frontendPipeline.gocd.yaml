@@ -24,6 +24,10 @@ pipelines:
                 - install
                 command: npm
                 run_if: passed
+            - cache:
+                key: npm-${{ hashFiles('package-lock.json') }}
+                paths:
+                - node_modules
     - Build:
         fetch_materials: true
         keep_artifacts: false
@@ -35,9 +39,15 @@ pipelines:
           Build-App:
             timeout: 0
             tasks:
+            - restore_cache:
+                key: npm-${{ hashFiles('package-lock.json') }}
             - exec:
                 arguments:
                 - run
                 - build
                 command: npm
                 run_if: passed
+            - save_cache:
+                key: npm-${{ hashFiles('package-lock.json') }}
+                paths:
+                - node_modules
