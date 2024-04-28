@@ -1,12 +1,12 @@
-format_version: 3
+format_version: 10
 pipelines:
-  6thPipeline:
+  todo-build:
     group: defaultGroup
     label_template: ${COUNT}
     lock_behavior: none
     display_order: -1
     materials:
-      git-f1d7942:
+      git-repo:
         git: https://github.com/Afk-Akash/todo
         shallow_clone: false
         auto_update: true
@@ -20,17 +20,16 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
-          dependency-build:
+          build-publish:
             timeout: 0
             tasks:
             - exec:
                 arguments:
-                - install
-                command: npm
+                - dockerize
+                command: make
                 run_if: passed
             - exec:
                 arguments:
-                - run
-                - build
-                command: npm
+                - publish
+                command: make
                 run_if: passed
