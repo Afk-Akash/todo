@@ -18,13 +18,13 @@ pipelines:
                   DOCKER_HUB_USERNAME: "your_username"
                   DOCKER_HUB_PASSWORD: "your_password"
                 tasks:
-                - exec:
-                    arguments:
-                    - dockerize
-                    command: make
-                    run_if: passed
-                - exec:
-                    arguments:
-                    - publish
-                    command: npm
-                    run_if: passed
+                  - exec:
+                      command: make
+                      arguments:
+                        - dockerize
+                      run_if: passed
+                  - exec:
+                      command: make
+                      arguments:
+                        - publish
+                      run_if: passed
