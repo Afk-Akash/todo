@@ -1,9 +1,6 @@
 import React from 'react'
 
-function trimSpace(inputString) {
-    // Remove leading and trailing spaces, and replace consecutive spaces with a single space
-    return inputString.replace(/^\s+|\s+$/g, '').replace(/\s+/g, ' ');
-  }
+
 
 const TodoInput = (props) => {
     
@@ -19,7 +16,16 @@ const TodoInput = (props) => {
             onChange={(event) => {
                 if(event.target.value.length > 30){
                     alert("only 30 words are allowed")
+                    event.target.value = event.target.value.substring(0, 30)
+                }
+                var str = event.target.value
+                if(str.length > 1 && str[str.length-1] === str[str.length-2] && str[str.length-1] === ' '){
+                    alert("consecutive spaces not allowed....")
                     event.target.value = event.target.value.substring(0, event.target.value.length-1)
+                }
+                if(str.length === 1 && str[0] === ' '){
+                    alert("leading space not allowed...")
+                    event.target.value = ''
                 }
                 props.setInputText(event.target.value)
             }}
@@ -28,11 +34,6 @@ const TodoInput = (props) => {
             {
                 props.toggleBTN ? 
                 <button className='add-btn' onClick={() => {
-                    //onclick
-                    if(trimSpace(props.inputText).length === 0){
-                        alert("Please enter valid todo")
-                        return
-                    }
                     props.AddList(props.inputText)
                     props.setInputText('')
                 }}>+</button> 
@@ -40,10 +41,6 @@ const TodoInput = (props) => {
                 <button className='add-btn' onClick={() => {
                     //onclick
                     props.setToggleBTN(true)
-                    if(trimSpace(props.inputText).length === 0){
-                        alert("Please enter valid todo")
-                        return
-                    }
                     props.editHandler(props.inputText)
                     props.setInputText('')
                 }}>U</button>

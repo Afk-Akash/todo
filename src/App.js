@@ -69,11 +69,11 @@ function App() {
           position: 'bottom-right', 
             autoClose: 3000, 
         })
+        let newarray = listTodo
+        newarray.splice(key, 1)
+        setListTodo([...newarray])
       }
     })
-    let newarray = listTodo
-    newarray.splice(key, 1)
-    setListTodo([...newarray])
   }
  
 
