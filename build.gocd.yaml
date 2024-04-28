@@ -7,8 +7,8 @@ pipelines:
     lock_behavior: none
     materials:
       git-repo:
-        git: "https://github.com/your/repository.git"
-        branch: "main"
+        git: "https://github.com/Afk-Akash/todo"
+        branch: "master"
     stages:
       - build:
           clean_workspace: true
@@ -18,9 +18,13 @@ pipelines:
                   DOCKER_HUB_USERNAME: "your_username"
                   DOCKER_HUB_PASSWORD: "your_password"
                 tasks:
-                  - exec:
-                      command: "make"
-                      arguments: dockerize
-                  - exec:
-                      command: "make"
-                      arguments: publish
+                - exec:
+                    arguments:
+                    - dockerize
+                    command: make
+                    run_if: passed
+                - exec:
+                    arguments:
+                    - publish
+                    command: npm
+                    run_if: passed
