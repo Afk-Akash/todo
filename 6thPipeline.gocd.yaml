@@ -1,4 +1,4 @@
-format_version: 10
+format_version: 3
 pipelines:
   6thPipeline:
     group: defaultGroup
