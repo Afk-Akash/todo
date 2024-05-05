@@ -1,7 +1,7 @@
 DOCKER_HUB_USERNAME := akashkumar11
 DOCKER_HUB_PASSWORD := Dockerhub*098
 DOCKER_IMAGE_NAME := todo-frontend
-DOCKER_IMAGE_TAG := 1.02
+DOCKER_IMAGE_TAG := ${GO_REVISION_GIT_REPO}
 
 .PHONY: login dockerize publish
 
